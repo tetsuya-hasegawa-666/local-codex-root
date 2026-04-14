@@ -1,0 +1,7 @@
+interface:
+  display_name: "Write Boundary Guard"
+  short_description: "READ 以外の access を許可 root 配下へ限定する。"
+  default_prompt: "Use $write-boundary-guard to confirm that any non-READ access stays within the directory that contains the admin-designated AGENTS.md and its descendants."
+
+policy:
+  allow_implicit_invocation: true
