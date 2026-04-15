@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Name Standardize"
+  short_description: "skill名とID命名 rule を統一管理する"
+  default_prompt: "Use this skill when defining, reviewing, or registering skill names under the local-codex-root naming rule."

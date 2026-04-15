@@ -1,30 +1,33 @@
 <order>
 
 # AGENTS.md
-- 概案名: `Shared Governance Core`
-- 目的: shared rule を軽量に保ち、実行詳細は skill / script / reference へ分離しつつ、再現性の高い agent work を強制する
+- 役割名: `Shared Governance Core`
+- 目的: shared rule を軽量に保ち、実行詳細を skill / script / reference で分離しつつ実行内容の詳細指示をすることで、再現性の高い agent work を強制し、人による可読性と拡張性、補修性、トレーサビリティを容易化すること
 
-## 0. この文書の役割
+## 0. 本文書の役割
 
 | 項目 | 内容 |
 | --- | --- |
 | 文書の位置づけ | `local-codex-root/` 配下全体に効く最上位 shared control file |
-| 本文に置くもの | 全体構造、責務境界、強制順序、禁止事項、文書運用、directory 運用、gate 運用、branch 運用、共通注意点 |
-| 本文に置かないもの | 詳細手順、分岐、判定表、具体例、実装、script 本体、reference matrix |
-| 詳細の置き場 | `kisaragi-skills/<skill>/scripts/` と `references/`、関連運用文書 |
+| 本文書に置くもの | 本文書を含む Governance 全体構造<br>各文書の責務境界<br>Governance を維持する上で強制される実行順序<br>Governance を維持する上での禁止事項<br>Governance を維持する観点で必要な文書運用指針<br>Governance 維持を目指す上での現状の directory 運用と、gate 運用と、branch 運用、および共通注意点 |
+| 本文書に置かないもの | Governance の領域を超えており、プロンプト毎、プロジェクト毎に設定定義されるべきのプロンプトやプロジェクト毎に適用方法を変えるべき詳細的内容<br>例） 手順、分岐、判定表、具体例、実装、script 本体、reference matrix 等 |
+| 詳細の置き場 | `root-skills/<skill>/scripts/` と `references/`、関連運用文書 |
 | 編集保護 | `<order>` と `</order>` の間は admin 専用編集領域。最優先で保護する |
 
-## 1. 基本原則
+## 1. 原則
 
 | 項目 | 内容 |
 | --- | --- |
-| 目的 | admin が Codex を senior software / UX engineer として活用し、有益な software を速く社会実装する |
-| 文体 | 人が読みやすく、文字数当たりの情報量が最大になるように書く |
-| 言語 | 日本語を基本とし、識別子、command、path、API 名、service 名、英字略語のみ必要時に原文使用 |
-| 文字コード | 日本語文書は UTF-8 前提 |
-| 命名 | file 名は半角英数字と混乱しにくい半角記号のみ |
+| 目的 | admin が 有益な software の社会実装を目標に、Codex のエージェント群を senior software / UX engineer として活用するため、 admin の意図(インサイト含む)に沿った振る舞いを実現する AI エージェント 開発を実施可能にすること、およびその手法を可視化すること |
+| 文体 | 文字数当たりの情報量が最大になることを優先し、人が読みやすい形式に整理した上で表示すること |
+| 言語 | 日本語を基本とする<br>識別子、command、path、API 名、service 名、英字略語など表現として日本語以外が適切な時は部分的に使用可とするが、()書きで日本語の訳を必ず付加すること |
+| 文字コード | 日本語文書は UTF-8 を前提とすること |
+| 命名 | file 名は半角英数字とコードやプログラムの中で混乱しにくい半角記号以外は使用禁止 |
+| skill 命名 | skill の正式IDは `<layer>-<serial>-<short_function_name>` を強制する。`layer` は `l0` / `l1` / `l2a` / `l2b` / `l3` / `lt` だけを使い、`serial` は layer ごとに独立した 3 桁固定 ID とし、順序意味を持たせず再利用しない |
+| skill 命名の不変条件 | 改名は原則 `short_function_name` だけに限定し、`layer` と `serial` は固定する。`short_function_name` は repo 内で一意の小文字英数字 + `-` だけを使い、曖昧語や一時語を禁止する |
 | 正本参照順 | 上位から `AGENTS.md` / `agents.md` / project truth 正本 / 統合計画書 |
 | shared / project 分離 | shared rule は `AGENTS.md`、project 固有事項は project 正本へ置く |
+| shared rule の表現粒度 | `AGENTS.md` は shared governance を定性的表現でだけ定義する。固定 section 構成、列定義、詳細手順、判定表、具体 template は対応 skill / reference へ置く |
 | 補助文書制約 | `README.md` `index.md` は原則禁止。必要時のみ用途明示 |
 
 ## 2. 全体構成
@@ -71,7 +74,7 @@
 | read_set | 先に読むべき正本 / reference の最小集合を決める |
 | 常時並走 | 表向きの応答主線とは別に、`skill-opportunity-scout` と `skill-opportunity-ledger` を常時 backloop として回し、skill 化候補の抽出と台帳追記を行う |
 | `Go` 後導線 | admin が `Go` を出した時は `skill-opportunity-architect` と `skill-opportunity-integrator` へ handoff し、既存 merge / 新規 skill 化 / 発火連携まで進める |
-| 禁止 | 実行順設計、応答整形、正本文書直接編集 |
+| 禁止 | 実行順設計、応答整形、正本文書書直接編集 |
 | handoff | `skill-planner` へ渡す |
 
 ## 6. skill-planner 規則
@@ -99,7 +102,9 @@
 | --- | --- |
 | 最上位 shared control file | `AGENTS.md` |
 | directory rule file | 各階層の `agents.md` |
-| project truth | 目的、完成判定、利用入口、UX 原則、段階構造、責務境界 |
+| project truth | project 固有の目的、完成判定、利用入口、UX 原則、段階構造、責務境界のような定性的 truth |
+| project truth の構成 rule | `文書の役割` の具体構成、canonical 要素一覧、section 設計、detail な書き分け方は `project-truth-boundary-keeper` が管理し、`AGENTS.md` には定性的原則だけを置く |
+| skill 命名の詳細 rule | layer ごとの採番、欠番、禁止語、語順、例、planner 関係の detail は `lt-001-skill-name-standardize` が管理する |
 | 統合計画書 | `current_state`、BDD、TDD、`MRL` / `mRL` / `INITL` 進行管理 |
 | admin 手順正本 | 人が実際に操作する手順と判断基準 |
 | admin 証跡正本 | admin `UX check`、gate close 根拠 |
@@ -112,13 +117,13 @@
 | directory | 位置づけ |
 | --- | --- |
 | `local-codex-root/` | top directory。最上位運用正本は `AGENTS.md` |
-| `kisaragi-db/` | project 方針、構想、経過、成果物の正規保持先 |
-| `kisaragi-skills/` | skill 正本とその `scripts/` `references/` |
-| `kisaragi-tree/` | junction による閲覧 tree。実データ copy を持たない |
-| `kisaragi-db/--devs/` | 計画、状態、証跡、test code、product 実装物、trace |
-| `kisaragi-db/--devs/--tgpce-map/` | truth / goal / plan / current / evidence-map 集約 |
-| `kisaragi-db/--devs/--testlogs/` | 記録、要約、manifest 等 |
-| `kisaragi-db/--exsams/` | raw 生成物、一時調査出力、tmp 類 |
+| `root-db/` | project 方針、構想、経過、成果物の正規保持先 |
+| `root-skills/` | skill 正本とその `scripts/` `references/` |
+| `root-tree/` | junction による閲覧 tree。実データ copy を持たない |
+| `root-db/--devs/` | 計画、状態、証跡、test code、product 実装物、trace |
+| `root-db/--devs/--tgpce-map/` | truth / goal / plan / current / evidence-map 集約 |
+| `root-db/--devs/--testlogs/` | 記録、要約、manifest 等 |
+| `root-db/--exsams/` | raw 生成物、一時調査出力、tmp 類 |
 
 ## 10. directory 統制
 
@@ -127,8 +132,8 @@
 | `--` category | shared structure。Codex 判断で新設しない |
 | 新規迂回 path | rule 外 category を出力先として作らない |
 | 一時出力 | `--exsams/` 外に残さない |
-| tree 編集 | `kisaragi-tree/` を直接編集しない |
-| 正本編集 | 常に `kisaragi-db/` 側の正本で編集する |
+| tree 編集 | `root-tree/` を直接編集しない |
+| 正本編集 | 常に `root-db/` 側の正本で編集する |
 
 ## 11. plan / gate 規則
 
@@ -208,20 +213,20 @@
 | 項目 | 規則 |
 | --- | --- |
 | 位置づけ | Windows 前提の再現可能手順の単一参照面 |
-| 記録原則 | Windows ベース手順は chat に散在させず正本文書へ昇格 |
-| tree sync | `kisaragi-tree/` 配下の公式 script を使う |
+| 記録原則 | Windows ベース手順は chat に散在させず正本文書書へ昇格 |
+| tree sync | `root-tree/` 配下の公式 script を使う |
 | 再生成 | build 正本に従い配布用実行物を再生成する |
 
 ## 18. 参照先一覧
 
 | 主題 | 参照先 |
 | --- | --- |
-| 入口設計 | `kisaragi-skills/kisaragi_skill_trigger_system_map.md` |
-| 全体提案 | `kisaragi-skills/kisaragi_context_skill_governance_proposal.md` |
-| pilot skill 設計 | `kisaragi-skills/kisaragi_pilot_skill_spec.md` |
-| skill 配置 | `kisaragi-skills/agents.md` |
-| 軽量化方針 | `kisaragi-skills/kisaragi_upper_document_lightweighting_proposal.md` |
-| skill 化候補台帳 | `kisaragi-skills/skill-opportunity-ledger/references/skill-opportunity-proposals.md` |
+| 入口設計 | `root-skills/kisaragi_skill_trigger_system_map.md` |
+| 全体提案 | `root-skills/kisaragi_context_skill_governance_proposal.md` |
+| pilot skill 設計 | `root-skills/kisaragi_pilot_skill_spec.md` |
+| skill 配置 | `root-skills/agents.md` |
+| 軽量化方針 | `root-skills/kisaragi_upper_document_lightweighting_proposal.md` |
+| skill 化候補台帳 | `root-skills/skill-opportunity-ledger/references/skill-opportunity-proposals.md` |
 
 ## 19. refresh target skill
 
@@ -282,7 +287,7 @@
 
 | 項目 | 内容 |
 | --- | --- |
-| 履歴本文 | `AGENTSmd-RH.md` に置く |
+| 履歴本文書 | `AGENTSmd-RH.md` に置く |
 | 本体末尾 | 履歴参照のみを置く |
 | 更新原則 | shared rule 追加時は履歴文書も同 task で更新する |
 

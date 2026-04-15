@@ -24,6 +24,8 @@ prompt を受けた最初の段階で、「今回 skill を使うべきか」「
    - script / notebook / runbook 編集を含むか
    - 設計変更や参照切替を含むか
    - 文書同期が必要か
+   - `AGENTS.md` と project truth の境界整理、または project truth 冒頭構成の整理が主題か
+   - skill 名の layer / serial / `short_function_name` 命名 rule や rename 可否の判定が主題か
    - BDD / TDD / gate 更新が主題か
    - `Colab` / remote compute を含むか
    - `READ` 以外の access を伴うか
@@ -83,6 +85,10 @@ prompt を受けた最初の段階で、「今回 skill を使うべきか」「
   - `design-first-script-builder`
 - path / contract / output / docs_id の切替:
   - `reference-rewire-operator`
+- `AGENTS.md` と project truth の境界整理、project truth 冒頭構成、canonical 要素の置き場整理:
+  - `project-truth-boundary-keeper`
+- skill 名の layer / serial / `short_function_name` 命名、採番、rename、禁止語 review:
+  - `lt-001-skill-name-standardize`
 - 文書 drift や文書 topology の同期:
   - `documentation-watchkeeper`
 - BDD / TDD / gate / handover:

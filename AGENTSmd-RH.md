@@ -12,6 +12,34 @@
 
 ## 更新履歴
 
+### 2026-04-15 AGENTS.md skill 命名 rule を shared 化
+
+- 日時: `2026-04-15`
+- 文書名: `AGENTS.md`
+- 標題: skill 正式ID の命名 rule を shared governance と専用 skill へ分離
+- 背景: skill 名の形式、layer、serial、禁止語、改名範囲、planner との関係を repository 全体で統一したい要求が出た。
+- 目的: `AGENTS.md` に強制 rule の骨格だけを残し、採番や禁止語を含む detail は reusable skill と reference に寄せて、今後の skill 追加と review を安定化する。
+- 対処方法: `AGENTS.md` に skill 命名の強制 rule と不変条件を追加し、`lt-001-skill-name-standardize` を新設した。あわせて `skill-invoker` に命名 rule が主題の時の発火条件を追加し、skill ledger を更新した。
+- 対応内容: `AGENTS.md`、`kisaragi-skills/agents.md`、`skill-invoker/SKILL.md`、新 skill 本体、reference、UI metadata を同じ task で更新した。
+- 更新結果: 今後の skill 命名は `<layer>-<serial>-<short_function_name>` を強制し、命名 detail の確認は `lt-001-skill-name-standardize` を通して行える。
+- 新旧比較:
+  - 旧: skill 名の shared 命名 rule は存在せず、各 skill 名は個別判断で付与されていた。
+  - 新: shared governance に命名の骨格 rule が入り、detail は `lt-001-skill-name-standardize` が管理する構造になった。
+
+### 2026-04-15 AGENTS.md project truth の役割構成を skill へ吸収
+
+- 日時: `2026-04-15`
+- 文書名: `AGENTS.md`
+- 標題: `AGENTS.md` に定性的原則だけを残し、project truth 冒頭構成 rule を専用 skill へ分離
+- 背景: `project-truth-core.md` 冒頭の `文書の役割` に、project 固有事項ではなく shared rule として扱うべき説明と構成 detail が混在していた。
+- 目的: `AGENTS.md` には shared governance の定性的原則だけを残し、project truth の冒頭構成や canonical 要素整理のような detail は再利用可能な skill / reference へ吸収する。
+- 対処方法: `AGENTS.md` に shared rule の表現粒度と project truth の構成 rule を追加し、`project-truth-boundary-keeper` を新設して `skill-invoker` の発火条件と skill ledger を更新した。`project-truth-core.md` 冒頭は shared rule 由来の detail を削って、役割だけを残す形へ整理した。
+- 対応内容: 新 skill と reference、`skill-invoker` の routing、`kisaragi-skills/agents.md`、`project-truth-core.md` の `文書の役割` を同じ task で更新した。
+- 更新結果: 今後は `AGENTS.md` に shared の定性的原則だけを記述し、project truth の構成 detail は `project-truth-boundary-keeper` を経由して管理できる。
+- 新旧比較:
+  - 旧: `project-truth-core.md` 冒頭に shared rule と構成 detail が直書きされていた。
+  - 新: shared の定性的 rule は `AGENTS.md`、構成 detail は `project-truth-boundary-keeper`、project 固有の役割説明だけを `project-truth-core.md` に残す構造になった。
+
 ### 2026-04-15 AGENTS.md `skill-invoker` 正本化と hidden skill-opportunity backloop 導入
 
 - 日時: `2026-04-15`
@@ -833,7 +861,5 @@
 - 新旧比較:
   - 旧: 半集中型を推奨し、補助 trigger controller の分担を前提にしていた。
   - 新: 集中型を採り、trigger ownership を distributor へ集約した。
-
-
 
 

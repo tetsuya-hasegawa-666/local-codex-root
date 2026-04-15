@@ -36,8 +36,10 @@
 - `external-compute-output-keeper`
 - `frontier-research-curator`
 - `log-promotable-facts-extractor`
+- `lt-001-skill-name-standardize`
 - `path-contract-scanner`
 - `phase-task-orchestrator`
+- `project-truth-boundary-keeper`
 - `reference-rewire-operator`
 - `rule-diff-clarifier`
 - `rule-snapshot-reader`
@@ -87,6 +89,8 @@
 | rule / authority helper | `rule-snapshot-reader` / `authoritative-doc-scope-resolver` / `rule-diff-clarifier` / `write-boundary-guard` | `receipt-manager` と `skill-invoker` の内部補助 |
 | task structuring helper | `task-intent-normalizer` / `task-scope-splitter` / `close-condition-definer` | `skill-planner` の内部補助 |
 | doc / sync specialist | `documentation-watchkeeper` / `doc-target-resolver` / `script-doc-sync-enforcer` / `test-and-evidence-recorder` | `document-control-manager` / `writing-normalizer` / `evidence-trace-manager` 候補 |
+| naming specialist | `lt-001-skill-name-standardize` | `project-registry-manager` / `writing-normalizer` 候補 |
+| truth boundary specialist | `project-truth-boundary-keeper` | `document-control-manager` / `writing-normalizer` / `plan-gate-manager` 候補 |
 | design / contract specialist | `design-first-script-builder` / `reference-rewire-operator` / `path-contract-scanner` / `artifact-handoff-mapper` | `implementation-quality-manager` / `workspace-structure-manager` 候補 |
 | runtime / structure specialist | `runtime-structure-dependency-mapper` / `runtime-operator` | `implementation-quality-manager` / `research-execution-manager` 候補 |
 | planning / gate specialist | `delivery-planning-keeper` | `plan-gate-manager` 候補 |

@@ -5,12 +5,10 @@
 
 ## 文書の役割
 
-- 何を作るか
-- 最小で何を成立させるか
-- 何を後段へ回すか
-- app / artifact / 外部境界をどう切るか
-
-現在状態、未完 gate、優先順位、細かい運用順は [realtime-compass-and-status.md](/C:/Users/tetsuya/kisaragi/test/kisaragi-db/--devs/--tgpce-map/prj-kisaragi_0002/realtime-compass-and-status.md) に置く。
+- この文書は、`prj-kisaragi_0002` の方向性、価値、責務境界、canonical 採用済み定義のような project 固有の定性的 truth を保持する。
+- 定量的に追跡する current、gate、next action、evidence、履歴は `realtime-compass-and-status.md` が持つ。
+- active な判断は `realtime-compass-and-status.md` に置き、採用済み定義はこの文書へ戻す。
+- `文書の役割` の section 構成、canonical 要素一覧、detail な書き分け方は shared rule ではなく `project-truth-boundary-keeper` に従う。
 
 ## test refresh addendum
 
@@ -250,7 +248,6 @@ summary:
 | `FieldProcess OS` | `10時間` 運用まで拡張した将来基盤 |
 
 - 開発上の前提は「いまは `TraceCore` を作る」で固定する。
-
 
 
 

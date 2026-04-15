@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Truth Boundary Keeper"
+  short_description: "project truthとshared ruleの境界を保つ"
+  default_prompt: "Use this skill to keep AGENTS, project truth, and current/gate documents aligned when deciding what belongs in shared governance versus project-specific qualitative truth."
