@@ -1,0 +1,50 @@
+{
+  "skill_id": "l2a-009-test-evidence-record",
+  "test_code_name": "run_skill_capability_checks.py::structural_capability_suite",
+  "status": "pass",
+  "results": [
+    {
+      "test_id": "t1",
+      "description": "frontmatter name が directory 名と一致する",
+      "passed": true,
+      "detail": "name='l2a-009-test-evidence-record'"
+    },
+    {
+      "test_id": "t2",
+      "description": "frontmatter description が存在する",
+      "passed": true,
+      "detail": "description present"
+    },
+    {
+      "test_id": "t3",
+      "description": "Trigger Ownership section を持つ",
+      "passed": true,
+      "detail": "trigger ownership found"
+    },
+    {
+      "test_id": "t4",
+      "description": "Workflow section を持つ",
+      "passed": true,
+      "detail": "workflow found"
+    },
+    {
+      "test_id": "t5",
+      "description": "reference section を持つ",
+      "passed": true,
+      "detail": "reference section found"
+    },
+    {
+      "test_id": "t6",
+      "description": "SKILL.md 内で参照する relative path が存在する",
+      "passed": true,
+      "detail": "all referenced paths exist"
+    },
+    {
+      "test_id": "t7",
+      "description": "skill registry に登録されている",
+      "passed": true,
+      "detail": "registered in kisaragi-skills/agents.md"
+    }
+  ],
+  "remediation": []
+}

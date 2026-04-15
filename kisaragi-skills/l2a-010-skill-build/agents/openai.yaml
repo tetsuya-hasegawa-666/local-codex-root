@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Builder"
+  short_description: "skill を作成または変更し、機能確認テストまで閉じる"
+  default_prompt: "Use $l2a-010-skill-build to create or update a workspace skill, align its references and metadata, and require $l2b-010-skill-function-test-run to create, run, and evaluate capability checks before closing."

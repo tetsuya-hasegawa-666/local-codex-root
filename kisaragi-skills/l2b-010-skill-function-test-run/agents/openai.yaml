@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Function Test Runner"
+  short_description: "skill の機能確認テストを作成、実行、評価する"
+  default_prompt: "Use $l2b-010-skill-function-test-run to create capability checks for a target skill, execute them in the same task, and evaluate whether the skill satisfies its required functions."

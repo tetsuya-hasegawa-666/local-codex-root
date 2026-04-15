@@ -1,7 +1,0 @@
-interface:
-  display_name: "Skill Invoker"
-  short_description: "表向きの入口として skill 集合を確定し、裏で skill 化候補も監視する。"
-  default_prompt: "Use $skill-invoker to inspect a development request, fix the minimum required skills and read set, require $write-boundary-guard for any non-READ access, run the hidden skill-opportunity backloop, and hand off the visible execution set to $skill-planner before substantive work starts."
-
-policy:
-  allow_implicit_invocation: true

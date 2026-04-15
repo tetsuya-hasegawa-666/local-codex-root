@@ -6428,7 +6428,7 @@ Moviepy - video ready /content/drive/MyDrive/trajectreview/modeling/trajectrevie
 # codex v78
 
 - 添付 notebook `da3_ngl_runbook_3c.ipynb` と現行 canonical pair を照合し、block は同じ `#1-#17` でも内部に `repo bootstrap`、helper、wrapper source の再出現が多く、局所修正で閉じにくいことを確認した。
-- `kisaragi-skills/design-first-script-builder/` を新設し、設計審査票、関数 / クラス一覧表、docs ID 契約、validation / error handling を先に固定してから script を書く protocol を skill 化した。
+- `kisaragi-skills/l2a-001-design-first-script-build/` を新設し、設計審査票、関数 / クラス一覧表、docs ID 契約、validation / error handling を先に固定してから script を書く protocol を skill 化した。
 - `colab/da3_ngl_runbook_design_contract.md` を追加し、stage 責務、source-sync 対象、`HAUB` の `TDD` 後段に置く `クラス / 関数 / 主要変数一覧` の置き場を固定した。
 - `colab/da3_runbook_sources/` を追加し、まず `#5-1`、`#6-1`、`#12-2` を source file 化した。`sync_da3_runbook_sources.py` で source から `da3_ngl_runbook.md` / `.ipynb` へ同期できる。
 - `da3_ngl_runbook.md` / `.ipynb` には `DOC-F05-101`、`DOC-F06-101`、`DOC-F12-201` を入れ、`HAUB` と `codex-mrl-test-evidence.md` へ追跡情報を反映した。
@@ -6436,7 +6436,7 @@ Moviepy - video ready /content/drive/MyDrive/trajectreview/modeling/trajectrevie
 # codex v79
 
 - local validator 用に workspace 内 `_vendor/python` へ `PyYAML` を導入した。
-- `quick_validate.py` は最初 `yaml` module 不在、次に Windows locale 既定 encoding で `SKILL.md` を読んで失敗したため、`PYTHONPATH=C:/Users/tetsuya/kisaragi/_vendor/python` と `PYTHONUTF8=1` を付けて再実行し、`design-first-script-builder` が `Skill is valid!` になることを確認した。
+- `quick_validate.py` は最初 `yaml` module 不在、次に Windows locale 既定 encoding で `SKILL.md` を読んで失敗したため、`PYTHONPATH=C:/Users/tetsuya/kisaragi/_vendor/python` と `PYTHONUTF8=1` を付けて再実行し、`l2a-001-design-first-script-build` が `Skill is valid!` になることを確認した。
 - `colab/agents.md` と `admin-mrl-test-method.md` も、design contract と `da3_runbook_sources/` の source-sync 面が読めるよう更新した。
 
 # codex v80
@@ -6582,12 +6582,12 @@ Moviepy - video ready /content/drive/MyDrive/trajectreview/modeling/trajectrevie
 - `14_01.md`、pair、inventory、test を同期し、local test は `11 tests OK`。
 
 # codex v103
-- admin 指示に合わせて `design-first-script-builder` を読み直し、`ARCore anchor baseline route` を fallback / judge に残しつつ、`DA3 NGL predicted trajectory experimental route` を merge 主座標候補として比較する計画へ `MRL-10 / mRL-10.4` を組み直した。
+- admin 指示に合わせて `l2a-001-design-first-script-build` を読み直し、`ARCore anchor baseline route` を fallback / judge に残しつつ、`DA3 NGL predicted trajectory experimental route` を merge 主座標候補として比較する計画へ `MRL-10 / mRL-10.4` を組み直した。
 - `HAUB` の `current_state`、`BLK-1`、`project 固有 decision 要約`、`次の一手`、`mRL-10.4` 実装ステップ、modeling 用 script 一覧表を更新し、single chunk 成立済み / multi-frame final 未了という現状と、baseline / experimental の二層設計を明記した。
 - `da3_ngl_runbook_design_contract.md` には `#13` を pre-merge judge 面、`#14` を merge engine 面として扱い、baseline / experimental の両 route で `route_label` と judge 指標を残す authoring 契約を追記した。`da3_ngl_runbook_source_inventory.md` にも `#13-1` と `#14-1` の key data へ `route_label` を加えた。
 
 # codex v104
-- admin 指示に従い `design-first-script-builder` と `documentation-watchkeeper` の観点で `#13-1` / `#14-1` を route-aware 実装へ切り替えた。`#13-1` は `arcore_anchor_baseline` と `da3_predicted_primary` を同一 chunk / 同一 metric で比較し、`premerge_route_compare_arc.csv`、`premerge_route_compare_summary.json`、`premerge_pose_validation.json` に `route_label`、`fallback_used`、judge 指標を残す。
+- admin 指示に従い `l2a-001-design-first-script-build` と `l2a-005-documentation-watchkeep` の観点で `#13-1` / `#14-1` を route-aware 実装へ切り替えた。`#13-1` は `arcore_anchor_baseline` と `da3_predicted_primary` を同一 chunk / 同一 metric で比較し、`premerge_route_compare_arc.csv`、`premerge_route_compare_summary.json`、`premerge_pose_validation.json` に `route_label`、`fallback_used`、judge 指標を残す。
 - `#14-1` は `#13-1` の selected route を読み、chunk overlap の predicted trajectory を優先して merge しつつ、必要時だけ `ARCore` baseline へ fallback する merge engine に更新した。`chunk_global_transforms_arc.csv`、`merge_route_compare_arc.csv`、`merge_summary.json` には route 判定と fallback 発生が出る。
 - markdown source、pair、inventory、`HAUB`、design contract を同じ task で同期し、local では `sync_da3_runbook_sources.py`、`build_inventory.py`、`python -m unittest ...test_da3_runbook_sources.py` を再実行して `11 tests OK` を確認した。
 
@@ -6719,13 +6719,13 @@ Moviepy - video ready /content/drive/MyDrive/trajectreview/modeling/trajectrevie
 
 # codex v126
 
-- admin 指示に合わせて、script / notebook source 編集時に HAUB 対照表と probe を必ず通す運用を shared rule と skill へ昇格した。`AGENTS.md` には、script 編集時は `design-first-script-builder` と `reference-rewire-operator` を既定で起動し、project が handoff 対照表と contract probe を持つ時は code 変更と同じ task で対照表更新、probe 実行、関連 test 実行まで終える条項を追加した。履歴は `AGENTSmd-RH.md` に追記した。
-- `kisaragi-skills/design-first-script-builder/` と `kisaragi-skills/reference-rewire-operator/` を更新し、frontmatter description、workflow、guard rail、checklist、`agents/openai.yaml` に `HAUB` handoff row 更新と project probe / test 実行を明示した。これにより今後の script 編集は skill 自体が `対照表を使う・更新する・検証する` 流れを要求する。
+- admin 指示に合わせて、script / notebook source 編集時に HAUB 対照表と probe を必ず通す運用を shared rule と skill へ昇格した。`AGENTS.md` には、script 編集時は `l2a-001-design-first-script-build` と `l2a-002-reference-rewire-operate` を既定で起動し、project が handoff 対照表と contract probe を持つ時は code 変更と同じ task で対照表更新、probe 実行、関連 test 実行まで終える条項を追加した。履歴は `AGENTSmd-RH.md` に追記した。
+- `kisaragi-skills/l2a-001-design-first-script-build/` と `kisaragi-skills/l2a-002-reference-rewire-operate/` を更新し、frontmatter description、workflow、guard rail、checklist、`agents/openai.yaml` に `HAUB` handoff row 更新と project probe / test 実行を明示した。これにより今後の script 編集は skill 自体が `対照表を使う・更新する・検証する` 流れを要求する。
 - `HAUB` の `### Increpose Path Handoff Matrix` 直下にも、`increpose` source 編集時はこの表を authoritative contract とし、`da3_increpose_path_contract_probe.py` と関連 unittest を同 task で実行してから close する運用注記を追加した。`quick_validate.py` は環境に `PyYAML` がなく実行不能だったため、frontmatter と `agents/openai.yaml` の必須 key を自前 check し、加えて `python -m unittest ...test_da3_increpose_path_contract_probe.py ...test_da3_increpose_sources.py` の `6 tests OK` を確認した。
 
 # codex v127
 
-- admin 指示により `da3_ngl_increpose_RB.ipynb` の現行修正状態を再点検した。`design-first-script-builder` と `reference-rewire-operator` の運用で、source manifest、design contract、HAUB handoff matrix、contract probe、source test、pair 内の旧参照残骸検索をまとめて通した。
+- admin 指示により `da3_ngl_increpose_RB.ipynb` の現行修正状態を再点検した。`l2a-001-design-first-script-build` と `l2a-002-reference-rewire-operate` の運用で、source manifest、design contract、HAUB handoff matrix、contract probe、source test、pair 内の旧参照残骸検索をまとめて通した。
 - `python -m unittest ...test_da3_increpose_path_contract_probe.py ...test_da3_increpose_sources.py` は再度 `6 tests OK` を確認した。probe report では `critical_rule_failures=[]`、`haub_contract_failures=[]` で、`PATH-I01..I17` と source / notebook の producer・consumer・canonical path は現時点で一致している。
 - 追加の grep では `#8-9` の chunk 出力が `chunk_runs/<batch_name>/<chunk_name>/` 契約で残っていること、`#8-5` の `chunk_index_target.csv` / `batch_plan.csv` self-heal 導線が pair に反映済みであることを確認した。今回の再検査では新たな参照不整合は見つからず、追加 code 修正は不要と判断した。
 
@@ -6738,7 +6738,7 @@ Moviepy - video ready /content/drive/MyDrive/trajectreview/modeling/trajectrevie
 
 - admin 実測の `pred_extrinsics_not_found` 再発を受けて source を再確認したところ、`#8-3` が `batch_work_dir` にすでに `chunk_name` を含めていた一方、`#8-9` は `out_dir = batch_work_dir / chunk_name` としており、directory handoff が二重ネストになっていた。これが manifest と実出力先の再ずれ要因だった。
 - `08_03.py` は `batch_work_dir = chunk_runs/<batch_name>/` を batch scope に修正し、chunk 固有出力先は `chunk_out_dir = batch_work_dir / chunk_name` として manifest へ明示した。`08_09.py` と `10_01.py` は旧互換で `batch_work_dir` が chunk path を指していた場合も batch scope へ正規化し、`chunk_out_dir` があればそれを優先して `pred_extrinsics.npy` と `chunk_input_frames.csv` を解決するようにした。
-- `08_03.md`、`08_09.md`、source test、canonical pair を同期し、さらに `reference-rewire-operator` に `parent scope directory と leaf scope directory を混同しない` guard を追加した。`python -m unittest ...test_da3_increpose_path_contract_probe.py ...test_da3_increpose_sources.py` は引き続き `6 tests OK` を確認した。
+- `08_03.md`、`08_09.md`、source test、canonical pair を同期し、さらに `l2a-002-reference-rewire-operate` に `parent scope directory と leaf scope directory を混同しない` guard を追加した。`python -m unittest ...test_da3_increpose_path_contract_probe.py ...test_da3_increpose_sources.py` は引き続き `6 tests OK` を確認した。
 
 # codex v130
 

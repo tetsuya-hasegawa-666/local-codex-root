@@ -1,0 +1,7 @@
+interface:
+  display_name: "Skill Opportunity Ledger"
+  short_description: "候補台帳と更新履歴を追記する。"
+  default_prompt: "Use $lt-003-skill-opportunity-ledger to append newly detected skillization candidates to the proposal ledger and record the append in the proposal ledger history."
+
+policy:
+  allow_implicit_invocation: true

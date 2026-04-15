@@ -1,0 +1,7 @@
+interface:
+  display_name: "Skill Opportunity Scout"
+  short_description: "skill 化候補を常時抽出する。"
+  default_prompt: "Use $lt-002-skill-opportunity-scout as a hidden backloop to detect repeatable, mechanizable task fragments that may deserve skillization."
+
+policy:
+  allow_implicit_invocation: true

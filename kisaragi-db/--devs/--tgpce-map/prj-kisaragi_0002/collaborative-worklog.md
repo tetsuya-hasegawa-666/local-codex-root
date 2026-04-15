@@ -6,7 +6,7 @@
 - この file は、admin と Codex が notebook cell、script、error、観測結果を往復するための ring-buffer worklog とする。
 - この file は `project-truth-core.md`、`realtime-compass-and-status.md`、`admin-ux-method.md` の代替ではない。
 - durable fact は速やかに `project-truth-core.md` または `realtime-compass-and-status.md` へ昇格する。
-- reference ownership は `documentation-watchkeeper` が持ち、持続価値のある記述を正本文書へ昇格する責務を持つ。
+- reference ownership は `l2a-005-documentation-watchkeep` が持ち、持続価値のある記述を正本文書へ昇格する責務を持つ。
 
 ## 容量制限
 
@@ -41,4 +41,4 @@ referenceは適切なskillが持ってください
 - 現時点の file 名、正本名、参照面に合わせて header を現行化した。
 - 過去本文は ring-buffer 運用へ合わせて削除し、この prompt を先頭の起点として再開する。
 - version 連番は旧本文の最終 `v131` から継続し、この entry を `v132` とした。
-- durable fact の保持先は `project-truth-core.md` と `realtime-compass-and-status.md`、reference ownership は `documentation-watchkeeper` とする。
+- durable fact の保持先は `project-truth-core.md` と `realtime-compass-and-status.md`、reference ownership は `l2a-005-documentation-watchkeep` とする。

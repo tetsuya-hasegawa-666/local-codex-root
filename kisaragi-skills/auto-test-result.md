@@ -1,0 +1,41 @@
+# auto-test-result
+
+| skill | test code | result | 対処 |
+| --- | --- | --- | --- |
+| `l0-001-skill-invoke` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l0-002-request-intake` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l1-001-skill-plan` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l1-002-phase-task-orchestrate` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l1-003-task-intent-normalize` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l1-004-task-scope-split` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l1-005-close-condition-define` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l1-006-rule-snapshot-read` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l1-007-authoritative-doc-scope-resolve` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l1-008-rule-diff-clarify` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l1-009-write-boundary-guard` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-001-design-first-script-build` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-002-reference-rewire-operate` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-003-delivery-plan-keep` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-004-runtime-operate` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-005-documentation-watchkeep` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-006-project-truth-boundary-keep` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-007-frontier-research-curate` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-008-external-compute-output-keep` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-009-test-evidence-record` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2a-010-skill-build` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-001-doc-target-resolve` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-002-script-doc-sync-enforce` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-003-path-contract-scan` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-004-artifact-handoff-map` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-005-runtime-structure-dependency-map` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-006-drive-input-bootstrap-check` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-007-runtime-bootstrap-scope-resolve` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-008-evidence-destination-resolve` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-009-log-promotable-facts-extract` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l2b-010-skill-function-test-run` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `l3-001-response-shape` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `lt-001-skill-name-standardize` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `lt-002-skill-opportunity-scout` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `lt-003-skill-opportunity-ledger` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `lt-004-skill-opportunity-architect` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |
+| `lt-005-skill-opportunity-integrate` | `run_skill_capability_checks.py::structural_capability_suite` | `pass` | なし |

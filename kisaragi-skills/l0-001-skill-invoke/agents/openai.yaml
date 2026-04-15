@@ -1,0 +1,7 @@
+interface:
+  display_name: "Skill Invoker"
+  short_description: "表向きの入口として skill 集合を確定し、裏で skill 化候補も監視する。"
+  default_prompt: "Use $l0-001-skill-invoke to inspect a development request, fix the minimum required skills and read set, require $l1-009-write-boundary-guard for any non-READ access, run the hidden skill-opportunity backloop, and hand off the visible execution set to $l1-001-skill-plan before substantive work starts."
+
+policy:
+  allow_implicit_invocation: true

@@ -8,7 +8,7 @@
 - この文書は、`prj-kisaragi_0002` の方向性、価値、責務境界、canonical 採用済み定義のような project 固有の定性的 truth を保持する。
 - 定量的に追跡する current、gate、next action、evidence、履歴は `realtime-compass-and-status.md` が持つ。
 - active な判断は `realtime-compass-and-status.md` に置き、採用済み定義はこの文書へ戻す。
-- `文書の役割` の section 構成、canonical 要素一覧、detail な書き分け方は shared rule ではなく `project-truth-boundary-keeper` に従う。
+- `文書の役割` の section 構成、canonical 要素一覧、detail な書き分け方は shared rule ではなく `l2a-006-project-truth-boundary-keep` に従う。
 
 ## test refresh addendum
 

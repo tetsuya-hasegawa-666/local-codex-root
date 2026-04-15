@@ -12,6 +12,62 @@
 
 ## 更新履歴
 
+### 2026-04-16 AGENTS.md に request-intake / response-shape 実体 skill を実装
+
+- 日時: `2026-04-16`
+- 文書名: `AGENTS.md`
+- 標題: 前段解釈と後段整形を概念記述から実体 skill へ昇格
+- 背景: `AGENTS.md` と `kisaragi-skills/agents.md` には `receipt-manager` と `response-manager` の構想が先に入っていたが、実体 skill が無く、`l0-001-skill-invoke` と `l1-001-skill-plan` との handoff も文書上でしか成立していなかった。
+- 目的: prompt をそのまま skill 判定へ入れず、前段で解釈済み要求へ正規化し、後段で skill 結果を要求解釈に沿って整形する 3 層構造を実体化する。
+- 対処方法: 前段 skill を `l0-002-request-intake`、後段 skill を `l3-001-response-shape` として新設した。あわせて `AGENTS.md`、`kisaragi-skills/agents.md`、`l0-001-skill-invoke`、`l1-001-skill-plan` を更新し、入力と handoff を解釈済み要求ベースへ揃えた。
+- 対応内容: `AGENTS.md` の主線、強制順序、receipt / response 規則、refresh target skill、禁止事項を新 skill 名へ更新し、新 skill 本体、reference、metadata を追加した。`l0-001-skill-invoke` は `l0-002-request-intake` の出力を入力前提に変更し、`l1-001-skill-plan` は `interpreted_request` と `response_handoff` を扱うようにした。
+- 更新結果: 構想だけだった前段解釈 / 中段選定 / 後段整形が、`l0-002-request-intake -> l0-001-skill-invoke -> l1-001-skill-plan -> specialist skill -> l3-001-response-shape` の実体構成として運用できる状態になった。
+- 新旧比較:
+  - 旧: `receipt-manager` と `response-manager` は target concept であり、前段解釈と後段整形の実体 skill は存在しなかった。
+  - 新: `l0-002-request-intake` と `l3-001-response-shape` が実装され、`l0-001-skill-invoke` と `l1-001-skill-plan` の handoff も解釈済み要求ベースへ整合した。
+
+### 2026-04-16 AGENTS.md に skill 起動境界と項目別担当 skill を明示
+
+- 日時: `2026-04-16`
+- 文書名: `AGENTS.md`
+- 標題: `AGENTS.md` を事実記述の ruling として明確化し、全項目へ実行担当 skill を付与
+- 背景: `AGENTS.md` に skill 名や参照先が書かれていても、それ自体が即時起動命令に見える余地があり、実際の起動 flow と文書上の説明の境界も曖昧だった。また、各項目をどの skill が担うかを本文だけで追えない状態だった。
+- 目的: `AGENTS.md` は shared governance と文書構造の事実を示す参照元であり、skill の即時起動命令書ではないことを明文化し、起動は常に起動 rule に従う構造へ揃える。あわせて、各項目の担当 skill を本文上で即座に追跡できる状態へする。
+- 対処方法: `AGENTS.md` の `## 1. 原則` に、事実記述としての位置づけ、skill 明示と起動分離、発火不整合の即時是正 rule を追加した。さらに全 table に `実行担当 skill` または `実体 skill` 列を追加し、実体があるものと manager 的概念だけのものを区別して示した。
+- 対応内容: `AGENTS.md` 全章の table を更新し、原則、全体構成、強制順序、文書運用、directory、gate、safety、協調規則、参照先、refresh target skill、skill 作成項目、禁止事項、更新情報に担当 skill 表示を追加した。
+- 更新結果: `AGENTS.md` は「rule と参照の正本」でありつつ「起動命令書ではない」ことが明確になり、どの項目をどの skill が担うかを本文上で即座に参照できるようになった。実際の発火 flow と記述がずれた場合も、是正対象として扱う shared rule が入った。
+- 新旧比較:
+  - 旧: `AGENTS.md` は shared rule を持っていたが、skill 名記載と実際の起動の境界が読み取りにくく、各項目の担当 skill も一覧的には示されていなかった。
+  - 新: `AGENTS.md` は事実記述の ruling であり、skill 起動は rule に従うと明示された。各項目には担当 skill が列で付与され、実体 skill の有無も識別できるようになった。
+
+### 2026-04-16 AGENTS.md 文体 rule の強化と skill 機能確認テスト導線の追加
+
+- 日時: `2026-04-16`
+- 文書名: `AGENTS.md`
+- 標題: 文体 rule を高密度・可読・一義表現へ更新し、skill 作成時の機能確認テスト義務を追加
+- 背景: shared 文体 rule を「高密度、可読、一義表現」へ明確化したい要求と、skill 作成・変更時に必要機能を test で評価する導線を mandatory にしたい要求が同時に出た。
+- 目的: `AGENTS.md` の文書調を新しい文体 rule へ整合させ、同時に skill 作成・変更 task を test 作成、実行、評価まで閉じる shared rule を固定する。
+- 対処方法: `AGENTS.md` の文体 rule を更新し、文体 rule 変更時の追随見直し条項を追加した。あわせて skill 作成・変更では `l2a-010-skill-build` と `l2b-010-skill-function-test-run` を必須で同時起動し、各 skill が機能確認テストと評価を持つことを shared rule に追加した。
+- 対応内容: `AGENTS.md`、`kisaragi-skills/agents.md`、`l0-001-skill-invoke`、`l1-001-skill-plan`、`l2a-005-documentation-watchkeep`、新 skill 2 本とその reference / metadata、関連 routing / trigger / execution pattern を同じ task で更新した。
+- 更新結果: 文体 rule は高密度・可読・一義表現へ統一され、skill 作成・変更 task は機能確認テスト込みでしか close できない構造になった。
+- 新旧比較:
+  - 旧: 文体 rule は要約的で、一義表現の要件が弱く、skill 作成・変更も test 義務が shared rule で固定されていなかった。
+  - 新: 文体 rule は高密度・可読・一義表現を明示し、skill 作成・変更は test 作成、実行、評価まで mandatory になった。
+
+### 2026-04-15 AGENTS.md 既存 skill 名を正式IDへ全面移行
+
+- 日時: `2026-04-15`
+- 文書名: `AGENTS.md`
+- 標題: 実装済み skill の directory 名と参照名を `<layer>-<serial>-<short_function_name>` へ全面統一
+- 背景: 命名 rule 自体は先に shared 化したが、既存実装済み skill の大半は旧来の自由名のままで、rule と実体が不一致になっていた。
+- 目的: 現在使っている skill の正式ID、directory 名、`SKILL.md` の `name`、routing / registry / shared rule 参照を一致させ、以後の追加採番を layer 別連番で継続できる状態にする。
+- 対処方法: 実装済み 33 skill を `l0` `l1` `l2a` `l2b` `lt` へ再配置して新IDを割り当て、`AGENTS.md`、skill registry、各 skill 本体、reference、script 参照、UI metadata の旧名を一括更新したうえで skill directory を rename した。
+- 対応内容: `AGENTS.md`、`kisaragi-skills/agents.md`、実装済み skill directory 一式、`l0-001-skill-invoke` 配下 reference、関連 proposal / overview 文書群を同じ task で更新した。
+- 更新結果: repository 内の実装済み skill はすべて命名 rule に従う正式IDで参照され、以後は layer ごとの未使用最大番号+1で追加管理できる状態になった。
+- 新旧比較:
+  - 旧: 実装済み skill は `skill-invoker`、`phase-task-orchestrator`、`documentation-watchkeeper` のような自由名が主で、rule と directory 実体がずれていた。
+  - 新: 実装済み skill は `l0-001-skill-invoke`、`l1-002-phase-task-orchestrate`、`l2a-005-documentation-watchkeep` のような正式IDへ統一された。
+
 ### 2026-04-15 AGENTS.md skill 命名 rule を shared 化
 
 - 日時: `2026-04-15`
@@ -19,8 +75,8 @@
 - 標題: skill 正式ID の命名 rule を shared governance と専用 skill へ分離
 - 背景: skill 名の形式、layer、serial、禁止語、改名範囲、planner との関係を repository 全体で統一したい要求が出た。
 - 目的: `AGENTS.md` に強制 rule の骨格だけを残し、採番や禁止語を含む detail は reusable skill と reference に寄せて、今後の skill 追加と review を安定化する。
-- 対処方法: `AGENTS.md` に skill 命名の強制 rule と不変条件を追加し、`lt-001-skill-name-standardize` を新設した。あわせて `skill-invoker` に命名 rule が主題の時の発火条件を追加し、skill ledger を更新した。
-- 対応内容: `AGENTS.md`、`kisaragi-skills/agents.md`、`skill-invoker/SKILL.md`、新 skill 本体、reference、UI metadata を同じ task で更新した。
+- 対処方法: `AGENTS.md` に skill 命名の強制 rule と不変条件を追加し、`lt-001-skill-name-standardize` を新設した。あわせて `l0-001-skill-invoke` に命名 rule が主題の時の発火条件を追加し、skill ledger を更新した。
+- 対応内容: `AGENTS.md`、`kisaragi-skills/agents.md`、`l0-001-skill-invoke/SKILL.md`、新 skill 本体、reference、UI metadata を同じ task で更新した。
 - 更新結果: 今後の skill 命名は `<layer>-<serial>-<short_function_name>` を強制し、命名 detail の確認は `lt-001-skill-name-standardize` を通して行える。
 - 新旧比較:
   - 旧: skill 名の shared 命名 rule は存在せず、各 skill 名は個別判断で付与されていた。
@@ -33,39 +89,39 @@
 - 標題: `AGENTS.md` に定性的原則だけを残し、project truth 冒頭構成 rule を専用 skill へ分離
 - 背景: `project-truth-core.md` 冒頭の `文書の役割` に、project 固有事項ではなく shared rule として扱うべき説明と構成 detail が混在していた。
 - 目的: `AGENTS.md` には shared governance の定性的原則だけを残し、project truth の冒頭構成や canonical 要素整理のような detail は再利用可能な skill / reference へ吸収する。
-- 対処方法: `AGENTS.md` に shared rule の表現粒度と project truth の構成 rule を追加し、`project-truth-boundary-keeper` を新設して `skill-invoker` の発火条件と skill ledger を更新した。`project-truth-core.md` 冒頭は shared rule 由来の detail を削って、役割だけを残す形へ整理した。
-- 対応内容: 新 skill と reference、`skill-invoker` の routing、`kisaragi-skills/agents.md`、`project-truth-core.md` の `文書の役割` を同じ task で更新した。
-- 更新結果: 今後は `AGENTS.md` に shared の定性的原則だけを記述し、project truth の構成 detail は `project-truth-boundary-keeper` を経由して管理できる。
+- 対処方法: `AGENTS.md` に shared rule の表現粒度と project truth の構成 rule を追加し、`l2a-006-project-truth-boundary-keep` を新設して `l0-001-skill-invoke` の発火条件と skill ledger を更新した。`project-truth-core.md` 冒頭は shared rule 由来の detail を削って、役割だけを残す形へ整理した。
+- 対応内容: 新 skill と reference、`l0-001-skill-invoke` の routing、`kisaragi-skills/agents.md`、`project-truth-core.md` の `文書の役割` を同じ task で更新した。
+- 更新結果: 今後は `AGENTS.md` に shared の定性的原則だけを記述し、project truth の構成 detail は `l2a-006-project-truth-boundary-keep` を経由して管理できる。
 - 新旧比較:
   - 旧: `project-truth-core.md` 冒頭に shared rule と構成 detail が直書きされていた。
-  - 新: shared の定性的 rule は `AGENTS.md`、構成 detail は `project-truth-boundary-keeper`、project 固有の役割説明だけを `project-truth-core.md` に残す構造になった。
+  - 新: shared の定性的 rule は `AGENTS.md`、構成 detail は `l2a-006-project-truth-boundary-keep`、project 固有の役割説明だけを `project-truth-core.md` に残す構造になった。
 
-### 2026-04-15 AGENTS.md `skill-invoker` 正本化と hidden skill-opportunity backloop 導入
+### 2026-04-15 AGENTS.md `l0-001-skill-invoke` 正本化と hidden skill-opportunity backloop 導入
 
 - 日時: `2026-04-15`
 - 文書名: `AGENTS.md`
-- 標題: `skill-invoker` を旧単一入口吸収済みの正本入口として固定し、候補監視 backloop と write 境界監視を追加
-- 背景: `skill-invoker` は既に directory として存在していたが、本文には旧 distributor 的な説明が残り、また skill 化候補の抽出、台帳追記、分類、admin `Go` 後の反映を常時 backloop として運用する系統が未定義だった。
-- 目的: `skill-invoker` を current invoke gate として正本化し、表向きの主線を保ったまま、裏で `skill-opportunity-*` family を常時回す構造と、`READ` 以外の access を root 配下へ限定する監視を shared rule として固定する。
-- 対処方法: `AGENTS.md` の root / directory 参照を `local-codex-root` 基準へ刷新し、`skill-invoker` 規則へ hidden backloop と admin `Go` 後導線を追記した。あわせて `access / safety` を admin 明示 `AGENTS.md` root 基準へ強化し、`kisaragi-skills` 配下へ `write-boundary-guard`、`skill-opportunity-scout`、`skill-opportunity-ledger`、`skill-opportunity-architect`、`skill-opportunity-integrator` を追加した。
-- 対応内容: `skill-invoker` 本体、trigger matrix、routing matrix、skill registry、system map、pilot spec、documentation-watchkeeper reference map、候補台帳、候補台帳更新履歴を同じ task で更新した。
-- 更新結果: 今後の `local-codex-root` は、`skill-invoker` が旧単一入口を吸収した正本入口として動き、表向きの実行主線とは別に hidden backloop で skill 化候補を台帳化し、admin `Go` 後に連携更新まで進められる。
+- 標題: `l0-001-skill-invoke` を旧単一入口吸収済みの正本入口として固定し、候補監視 backloop と write 境界監視を追加
+- 背景: `l0-001-skill-invoke` は既に directory として存在していたが、本文には旧 distributor 的な説明が残り、また skill 化候補の抽出、台帳追記、分類、admin `Go` 後の反映を常時 backloop として運用する系統が未定義だった。
+- 目的: `l0-001-skill-invoke` を current invoke gate として正本化し、表向きの主線を保ったまま、裏で `skill-opportunity-*` family を常時回す構造と、`READ` 以外の access を root 配下へ限定する監視を shared rule として固定する。
+- 対処方法: `AGENTS.md` の root / directory 参照を `local-codex-root` 基準へ刷新し、`l0-001-skill-invoke` 規則へ hidden backloop と admin `Go` 後導線を追記した。あわせて `access / safety` を admin 明示 `AGENTS.md` root 基準へ強化し、`kisaragi-skills` 配下へ `l1-009-write-boundary-guard`、`lt-002-skill-opportunity-scout`、`lt-003-skill-opportunity-ledger`、`lt-004-skill-opportunity-architect`、`lt-005-skill-opportunity-integrate` を追加した。
+- 対応内容: `l0-001-skill-invoke` 本体、trigger matrix、routing matrix、skill registry、system map、pilot spec、l2a-005-documentation-watchkeep reference map、候補台帳、候補台帳更新履歴を同じ task で更新した。
+- 更新結果: 今後の `local-codex-root` は、`l0-001-skill-invoke` が旧単一入口を吸収した正本入口として動き、表向きの実行主線とは別に hidden backloop で skill 化候補を台帳化し、admin `Go` 後に連携更新まで進められる。
 - 新旧比較:
-  - 旧: `skill-invoker` は実在していたが旧 distributor 的な説明を残し、候補監視系統や write 境界監視は shared 化されていなかった。
-  - 新: `skill-invoker` が正本入口となり、`write-boundary-guard` と `skill-opportunity-*` family が hidden backloop / 実装導線として連携する構造になった。
+  - 旧: `l0-001-skill-invoke` は実在していたが旧 distributor 的な説明を残し、候補監視系統や write 境界監視は shared 化されていなかった。
+  - 新: `l0-001-skill-invoke` が正本入口となり、`l1-009-write-boundary-guard` と `skill-opportunity-*` family が hidden backloop / 実装導線として連携する構造になった。
 
-### 2026-04-14 AGENTS.md 新主線を `receipt-manager -> skill-invoker -> skill-planner -> response-manager` へ再編
+### 2026-04-14 AGENTS.md 新主線を `receipt-manager -> l0-001-skill-invoke -> l1-001-skill-plan -> response-manager` へ再編
 
 - 日時: `2026-04-14`
 - 文書名: `AGENTS.md`
 - 標題: `Shared Governance Core` を manager 主線へ再編し、shared rule を軽量化
-- 背景: 旧 refresh 版は `skill-invoker -> skill-planner` を主線にしていたが、`idea.md` で prompt 解釈、skill 選定、順序管理、応答整形を別責務へ明確分離する案が提示された。
-- 目的: `AGENTS.md` を原則と境界だけに圧縮しつつ、`receipt-manager`、`skill-invoker`、`skill-planner`、`response-manager` の強制順序を shared rule として固定する。
+- 背景: 旧 refresh 版は `l0-001-skill-invoke -> l1-001-skill-plan` を主線にしていたが、`idea.md` で prompt 解釈、skill 選定、順序管理、応答整形を別責務へ明確分離する案が提示された。
+- 目的: `AGENTS.md` を原則と境界だけに圧縮しつつ、`receipt-manager`、`l0-001-skill-invoke`、`l1-001-skill-plan`、`response-manager` の強制順序を shared rule として固定する。
 - 対処方法: `AGENTS.md` を新しい章立てへ全面更新し、directory、gate、文書運用、safety は shared rule に残し、詳細手順は skill / script / reference 側へ逃がす構造へ整理した。
 - 対応内容: `kisaragi-skills/agents.md` と skill 系の設計文書が新主線に追随できるよう、manager 群、参照先一覧、refresh target skill 一覧も同 task で同期する前提へ切り替えた。
-- 更新結果: 今後の `local-codex-root` 配下文書は、`receipt-manager -> skill-invoker -> skill-planner -> response-manager` を前提とする軽量 shared governance 構造で読める。
+- 更新結果: 今後の `local-codex-root` 配下文書は、`receipt-manager -> l0-001-skill-invoke -> l1-001-skill-plan -> response-manager` を前提とする軽量 shared governance 構造で読める。
 - 新旧比較:
-  - 旧: `skill-invoker` が prompt review と最終選定を兼ね、応答整形専用 layer は明示されていなかった。
+  - 旧: `l0-001-skill-invoke` が prompt review と最終選定を兼ね、応答整形専用 layer は明示されていなかった。
   - 新: prompt 解釈、skill 集合確定、順序管理、応答整形を 4 layer に分離し、shared rule と詳細文書の境界を明確化した。
 
 ### 2026-04-11 AGENTS.md 一時補助目標を `support-MRL` として明文化
@@ -82,33 +138,33 @@
   - 旧: temporary objective の扱いは task ごとの説明へ寄りやすく、継続条件と除去条件が shared rule では定義されていなかった。
   - 新: `support-MRL` を使って project 文書へ昇格し、temporary goal と close 条件を明示して運用できる。
 
-### 2026-04-11 AGENTS.md 開発 prompt の skill 選定を `skill-invoker` へ固定
+### 2026-04-11 AGENTS.md 開発 prompt の skill 選定を `l0-001-skill-invoke` へ固定
 
 - 日時: `2026-04-11`
 - 文書名: `AGENTS.md`
-- 標題: 開発 prompt ごとの必須 skill 提案を `skill-invoker` へ固定
-- 背景: 現状は `phase-task-orchestrator` などの入口 skill を整備しても、依頼ごとにどの skill を使うべきかの選定自体が暗黙で、結局 Codex の裁量に寄っていた。
+- 標題: 開発 prompt ごとの必須 skill 提案を `l0-001-skill-invoke` へ固定
+- 背景: 現状は `l1-002-phase-task-orchestrate` などの入口 skill を整備しても、依頼ごとにどの skill を使うべきかの選定自体が暗黙で、結局 Codex の裁量に寄っていた。
 - 目的: 開発 prompt を受けた最初の段階で、その prompt に必要な最小 skill 群と適用順を必ず先に決める入口を追加し、運用の安定性を上げる。
-- 対処方法: `kisaragi-skills/skill-invoker/` を新設し、routing matrix、UI metadata、workflow を追加したうえで、`AGENTS.md` に開発 prompt ではまず `skill-invoker` を使う shared rule を追記した。
-- 対応内容: skill 一覧では `skill-invoker` を最上位入口、`phase-task-orchestrator` を複数 task 開発依頼の進行管理 skill、そのほかを専門 skill として再配置した。
+- 対処方法: `kisaragi-skills/l0-001-skill-invoke/` を新設し、routing matrix、UI metadata、workflow を追加したうえで、`AGENTS.md` に開発 prompt ではまず `l0-001-skill-invoke` を使う shared rule を追記した。
+- 対応内容: skill 一覧では `l0-001-skill-invoke` を最上位入口、`l1-002-phase-task-orchestrate` を複数 task 開発依頼の進行管理 skill、そのほかを専門 skill として再配置した。
 - 更新結果: 今後は開発 prompt ごとに、まず使う skill と順序を先に提案してから作業へ入る運用を shared rule として扱える。
 - 新旧比較:
   - 旧: 入口 skill はあっても、依頼ごとの skill 選定自体は暗黙だった。
-  - 新: `skill-invoker` が prompt ごとの skill 選定を担当し、必要 skill と順序を先に固定する運用になった。
+  - 新: `l0-001-skill-invoke` が prompt ごとの skill 選定を担当し、必要 skill と順序を先に固定する運用になった。
 
 ### 2026-04-11 AGENTS.md phase 入口 skill へ authoritative guard を統合
 
 - 日時: `2026-04-11`
 - 文書名: `AGENTS.md`
-- 標題: `phase-task-orchestrator` を複数 task 開発の既定入口とし、authoritative guard を吸収
-- 背景: `phase-task-orchestrator` と `authoritative-doc-guard` はどちらも開発 task 冒頭の文脈固定を扱っており、入口 skill が 2 本あると、どちらを先に使うべきかが逆に曖昧になっていた。
-- 目的: 複数 task を含む開発依頼の入口を `phase-task-orchestrator` へ一本化し、authoritative doc check をその内部手順として扱うことで、skill 群の役割を明確にする。
-- 対処方法: `AGENTS.md` の該当条項を `phase-task-orchestrator` 付属の authoritative doc check 前提へ書き換え、`kisaragi-skills` 側では `authoritative-doc-guard` を独立 skill 一覧から外し、guard script を `phase-task-orchestrator/scripts/` へ再配置した。
-- 対応内容: `phase-task-orchestrator` の workflow に authoritative doc check と script を追加し、skill 一覧では phase skill を既定入口、`design-first-script-builder`、`reference-rewire-operator`、`documentation-watchkeeper`、`delivery-planning-keeper` を phase 内の専門 skill として再定義した。
-- 更新結果: 今後は複数 task 開発依頼で入口 skill を迷わず `phase-task-orchestrator` に寄せられ、authoritative 文書確認も同じ skill 内で完結する。
+- 標題: `l1-002-phase-task-orchestrate` を複数 task 開発の既定入口とし、authoritative guard を吸収
+- 背景: `l1-002-phase-task-orchestrate` と `authoritative-doc-guard` はどちらも開発 task 冒頭の文脈固定を扱っており、入口 skill が 2 本あると、どちらを先に使うべきかが逆に曖昧になっていた。
+- 目的: 複数 task を含む開発依頼の入口を `l1-002-phase-task-orchestrate` へ一本化し、authoritative doc check をその内部手順として扱うことで、skill 群の役割を明確にする。
+- 対処方法: `AGENTS.md` の該当条項を `l1-002-phase-task-orchestrate` 付属の authoritative doc check 前提へ書き換え、`kisaragi-skills` 側では `authoritative-doc-guard` を独立 skill 一覧から外し、guard script を `l1-002-phase-task-orchestrate/scripts/` へ再配置した。
+- 対応内容: `l1-002-phase-task-orchestrate` の workflow に authoritative doc check と script を追加し、skill 一覧では phase skill を既定入口、`l2a-001-design-first-script-build`、`l2a-002-reference-rewire-operate`、`l2a-005-documentation-watchkeep`、`l2a-003-delivery-plan-keep` を phase 内の専門 skill として再定義した。
+- 更新結果: 今後は複数 task 開発依頼で入口 skill を迷わず `l1-002-phase-task-orchestrate` に寄せられ、authoritative 文書確認も同じ skill 内で完結する。
 - 新旧比較:
   - 旧: phase 構成用 skill と authoritative guard skill が分かれており、入口が二重化していた。
-  - 新: `phase-task-orchestrator` が唯一の入口となり、authoritative guard はその内部手順へ統合された。
+  - 新: `l1-002-phase-task-orchestrate` が唯一の入口となり、authoritative guard はその内部手順へ統合された。
 
 ### 2026-04-11 AGENTS.md 複数 task 開発依頼の phase 構成を shared rule 化
 
@@ -146,7 +202,7 @@
 - 背景: `prj-kisaragi_0002` の `increpose` route で directory 定義、生成物出力先、参照先のずれが繰り返し発生し、個別修正だけでは再発を防ぎにくかった。
 - 目的: script 編集時に設計 skill と参照切替 skill を必ず使い、project が持つ `HAUB` handoff 対照表と contract probe / test を同じ task で更新・実行する shared 運用へ上げる。
 - 対処方法: `AGENTS.md` の `協調原則` に、script / notebook / runbook source 編集時の skill 起動必須条項と、handoff 対照表・probe・関連 test の同 task 実行条項を追加した。
-- 対応内容: 設計系変更は `design-first-script-builder`、参照切替や output / path / contract 変更は `reference-rewire-operator` を既定 skill とし、project が `HAUB` 等の対照表と probe を持つ場合はそれを authoritative contract として扱う rule を固定した。
+- 対応内容: 設計系変更は `l2a-001-design-first-script-build`、参照切替や output / path / contract 変更は `l2a-002-reference-rewire-operate` を既定 skill とし、project が `HAUB` 等の対照表と probe を持つ場合はそれを authoritative contract として扱う rule を固定した。
 - 更新結果: 今後の script 編集は、skill による設計 / 参照管理と、対照表・probe による機械検証が前提の shared governance になる。
 - 新旧比較:
   - 旧: script 編集時に skill 起動と handoff contract probe 実行を必須とする shared rule はなかった。
@@ -826,40 +882,38 @@
 
 - 日時: `2026-04-11`
 - 文書名: `AGENTS.md`
-- 標題: `skill-invoker -> skill-planner -> specialist skills` の実行系へ整理
+- 標題: `l0-001-skill-invoke -> l1-001-skill-plan -> specialist skills` の実行系へ整理
 - 背景: 共通前提の解釈、mark 解釈、発火条件を各 skill が個別に持つと、発火条件の drift と重複が生じやすく、運用上の説明責任も分散するという確認があった。
-- 目的: trigger ownership を `skill-invoker` へ一元化し、`skill-planner` が execution order と実行管理を担い、他 skill は受入前提と処理責務へ集中する構造へ整理する。
-- 対処方法: 協調規則へ、`skill-invoker` が prompt 全体 review、skill 要否判断、mark 解釈、必要 skill 候補の選定を担い、`skill-planner` が実行順と close 条件を管理することを追記した。
-- 対応内容: `AGENTS.md`、`kisaragi-skills/agents.md`、`skill-invoker`、`phase-task-orchestrator`、各専門 skill の役割境界を更新し、新設 `skill-planner` の位置づけを追加した。
-- 更新結果: 今後は `skill-invoker` が唯一の trigger owner、`skill-planner` が唯一の orchestration owner となり、他 skill は発火判断を持たず specialist として呼ばれる構造になる。
+- 目的: trigger ownership を `l0-001-skill-invoke` へ一元化し、`l1-001-skill-plan` が execution order と実行管理を担い、他 skill は受入前提と処理責務へ集中する構造へ整理する。
+- 対処方法: 協調規則へ、`l0-001-skill-invoke` が prompt 全体 review、skill 要否判断、mark 解釈、必要 skill 候補の選定を担い、`l1-001-skill-plan` が実行順と close 条件を管理することを追記した。
+- 対応内容: `AGENTS.md`、`kisaragi-skills/agents.md`、`l0-001-skill-invoke`、`l1-002-phase-task-orchestrate`、各専門 skill の役割境界を更新し、新設 `l1-001-skill-plan` の位置づけを追加した。
+- 更新結果: 今後は `l0-001-skill-invoke` が唯一の trigger owner、`l1-001-skill-plan` が唯一の orchestration owner となり、他 skill は発火判断を持たず specialist として呼ばれる構造になる。
 - 新旧比較:
-  - 旧: `phase-task-orchestrator` を含む複数 skill が入口や発火条件を個別に持っていた。
-  - 新: `skill-invoker -> skill-planner -> specialist skills` へ整理し、trigger ownership を中央集約した。
+  - 旧: `l1-002-phase-task-orchestrate` を含む複数 skill が入口や発火条件を個別に持っていた。
+  - 新: `l0-001-skill-invoke -> l1-001-skill-plan -> specialist skills` へ整理し、trigger ownership を中央集約した。
 ### 2026-04-12 AGENTS.md invoker と planner の責務境界を再整理
 
 - 日時: `2026-04-12`
 - 文書名: `AGENTS.md`
-- 標題: `skill-invoker` を最終選定 owner、`skill-planner` を発火と順序管理 owner へ整理
-- 背景: `skill-invoker` が選定し、`skill-planner` が再度選定に近い判断を持つと、選定が二重化して責務境界が曖昧になる懸念が出た。
-- 目的: skill 選定は 1 回にとどめ、`skill-invoker` が最終 skill 集合を確定し、`skill-planner` はその確定済み集合の発火、実行順、phase、handoff、close 条件だけを扱う構造へ統一する。
-- 対処方法: `AGENTS.md`、skill registry、`skill-invoker`、`skill-planner`、pilot spec、trigger system map の記述を同時に修正し、planner が skill の追加削除を行わないことを明記した。
-- 対応内容: `skill-invoker` を最終選定 owner、`skill-planner` を発火と execution order owner として定義し直した。
+- 標題: `l0-001-skill-invoke` を最終選定 owner、`l1-001-skill-plan` を発火と順序管理 owner へ整理
+- 背景: `l0-001-skill-invoke` が選定し、`l1-001-skill-plan` が再度選定に近い判断を持つと、選定が二重化して責務境界が曖昧になる懸念が出た。
+- 目的: skill 選定は 1 回にとどめ、`l0-001-skill-invoke` が最終 skill 集合を確定し、`l1-001-skill-plan` はその確定済み集合の発火、実行順、phase、handoff、close 条件だけを扱う構造へ統一する。
+- 対処方法: `AGENTS.md`、skill registry、`l0-001-skill-invoke`、`l1-001-skill-plan`、pilot spec、trigger system map の記述を同時に修正し、planner が skill の追加削除を行わないことを明記した。
+- 対応内容: `l0-001-skill-invoke` を最終選定 owner、`l1-001-skill-plan` を発火と execution order owner として定義し直した。
 - 更新結果: 今後は選定が 1 回で確定し、planner は選定済み skill 集合をどう動かすかだけを担当する。
 - 新旧比較:
-  - 旧: `skill-planner` が選定済み候補から実質的な再選定をしうる読め方があった。
-  - 新: 最終選定は `skill-invoker`、発火と順序管理は `skill-planner` と明確化した。
+  - 旧: `l1-001-skill-plan` が選定済み候補から実質的な再選定をしうる読め方があった。
+  - 新: 最終選定は `l0-001-skill-invoke`、発火と順序管理は `l1-001-skill-plan` と明確化した。
 ### 2026-04-12 AGENTS.md skill trigger 方針を invoker 集中型へ変更
 
 - 日時: `2026-04-12`
 - 文書名: `AGENTS.md`
-- 標題: `skill-invoker` を集中型 trigger owner として固定
+- 標題: `l0-001-skill-invoke` を集中型 trigger owner として固定
 - 背景: `rule / authority 系` や `task structuring 系` を補助 trigger controller として持つ半集中型は再利用性がある一方、実運用では trigger rule の所在が増えて distributor の責務説明が逆に重くなる懸念が出た。
-- 目的: trigger ownership を `skill-invoker` に集中させ、`skill-planner` は選定済み skill 集合の発火と実行順管理だけを担う形へ簡潔化する。
-- 対処方法: `AGENTS.md`、skill registry、`skill-invoker`、pilot spec、trigger system map を更新し、補助 trigger controller 前提を外した。
-- 対応内容: `skill-invoker` の責務を「集中型 trigger owner」として明記し、`skill-planner` は trigger 補助判断を持たないと整理した。
+- 目的: trigger ownership を `l0-001-skill-invoke` に集中させ、`l1-001-skill-plan` は選定済み skill 集合の発火と実行順管理だけを担う形へ簡潔化する。
+- 対処方法: `AGENTS.md`、skill registry、`l0-001-skill-invoke`、pilot spec、trigger system map を更新し、補助 trigger controller 前提を外した。
+- 対応内容: `l0-001-skill-invoke` の責務を「集中型 trigger owner」として明記し、`l1-001-skill-plan` は trigger 補助判断を持たないと整理した。
 - 更新結果: 今後は trigger 系統が 1 本化され、発火判断は distributor、発火後の順序管理は planner という役割で運用する。
 - 新旧比較:
   - 旧: 半集中型を推奨し、補助 trigger controller の分担を前提にしていた。
   - 新: 集中型を採り、trigger ownership を distributor へ集約した。
-
-

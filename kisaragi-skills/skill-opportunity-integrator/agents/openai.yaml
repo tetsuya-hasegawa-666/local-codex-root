@@ -1,7 +1,0 @@
-interface:
-  display_name: "Skill Opportunity Integrator"
-  short_description: "admin Go 後に skill 実装と発火連携を反映する。"
-  default_prompt: "Use $skill-opportunity-integrator after admin Go to implement the approved skill change, update AGENTS-to-skill linkage, update the registry and trigger references, and mark the proposal ledger accordingly."
-
-policy:
-  allow_implicit_invocation: true

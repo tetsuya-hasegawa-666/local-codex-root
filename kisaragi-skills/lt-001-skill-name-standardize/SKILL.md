@@ -7,6 +7,11 @@ description: Define, review, and register skill names under the local-codex-root
 
 skill 名を `<layer>-<serial>-<short_function_name>` の正式IDとして一貫運用する specialist とする。命名の骨格 rule は `AGENTS.md` に残し、採番、禁止語、例、rename 判定の detail はこの skill が管理する。
 
+## Trigger Ownership
+
+- この skill 自身は発火判断を持たない。
+- `l0-001-skill-invoke` が skill 名の layer / serial / `short_function_name` 命名、採番、rename、禁止語 review が主題だと判断した時だけ呼ばれる。
+
 ## 目的
 
 - 新しい skill に衝突しない正式IDを与える。

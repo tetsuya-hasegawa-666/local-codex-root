@@ -1,0 +1,1 @@
+run_skill_capability_checks.py::structural_capability_suite

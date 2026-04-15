@@ -443,7 +443,7 @@ canonical `modeling` pair は `da3_ngl_increpose_RB.md` / `.ipynb` とし、auth
 
 ### Increpose Path Handoff Matrix
 
-- `increpose` の script / notebook source 編集時は、`design-first-script-builder` と `reference-rewire-operator` の観点を必須で通し、この表を producer / consumer / canonical path の authoritative contract として更新する。
+- `increpose` の script / notebook source 編集時は、`l2a-001-design-first-script-build` と `l2a-002-reference-rewire-operate` の観点を必須で通し、この表を producer / consumer / canonical path の authoritative contract として更新する。
 - 上記編集 task は、code 更新だけで閉じず、`da3_increpose_path_contract_probe.py` と関連 unittest を同じ task で実行してから close する。
 - `#08-3` の planning 管理 file は `chunk_execution_plan.csv` の 1 file とする。target subset、execution batch、chunk scope path は同 file の列で持ち、旧 `chunk_index_*` / `batch_plan` / `execution_target_*` / `batch_execution_items` は互換派生に留める。
 - `#10-1` と `#11-1` の access manifest は管理正本ではない。class / method / directory / artifact の関係、producer / consumer、canonical path はこの表と周辺の `HAUB` 記述だけで管理する。runtime 上に `graph_contract_manifest.json` や `stage_access_index.json` を出してよいが、それらは `HAUB` から機械的に導出される派生 pointer に限り、手作業で真実を持たせてはならない。

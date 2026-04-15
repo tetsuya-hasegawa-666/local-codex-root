@@ -16,11 +16,11 @@
 | --- | --- | --- |
 | `この文書の役割` | `K` | shared governance core の定義そのもの |
 | `基本原則` | `K` | wording、encoding、読込順、shared / project 境界 |
-| `全体構成` | `K` | `receipt-manager -> skill-invoker -> skill-planner -> response-manager` の主線 |
+| `全体構成` | `K` | `receipt-manager -> l0-001-skill-invoke -> l1-001-skill-plan -> response-manager` の主線 |
 | `強制順序` | `K` | layer の順序は shared rule |
 | `receipt-manager 規則` | `K+M` | 原則は shared、処理本文は manager skill |
-| `skill-invoker 規則` | `K+M` | 原則は shared、判定 detail は manager skill |
-| `skill-planner 規則` | `K+E` | phase 原則は shared、実行 detail は planner 本体 |
+| `l0-001-skill-invoke 規則` | `K+M` | 原則は shared、判定 detail は manager skill |
+| `l1-001-skill-plan 規則` | `K+E` | phase 原則は shared、実行 detail は planner 本体 |
 | `response-manager 規則` | `K+M` | 応答整形の責務境界を固定するため |
 | `文書運用` | `K` | 正本境界は shared |
 | `ディレクトリ構造` | `K` | shared structure |
@@ -41,5 +41,5 @@
 ## 結論
 
 - `AGENTS.md` は manager 主線、shared rule、禁止事項に集中させる。
-- skill 選定 detail は `skill-invoker`、phase detail は `skill-planner`、応答 detail は `response-manager` へ逃がす。
+- skill 選定 detail は `l0-001-skill-invoke`、phase detail は `l1-001-skill-plan`、応答 detail は `response-manager` へ逃がす。
 - proposal 文書は、実装済み skill 在庫と refresh target manager 群の橋渡しを担当する。

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Skill Opportunity Architect"
-  short_description: "候補を既存 merge / 新規 skill に分類する。"
-  default_prompt: "Use $skill-opportunity-architect to classify accumulated skillization candidates into merge-with-existing or new-skill-needed, update the lower table of the proposal ledger, and record that update in the same ledger history."
-
-policy:
-  allow_implicit_invocation: true
